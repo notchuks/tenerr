@@ -1,0 +1,6 @@
+# API
+
+/server/node_modules
+/server/config
+/server/yarn.lock
+/server/src/.env
