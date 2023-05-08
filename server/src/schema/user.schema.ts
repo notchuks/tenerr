@@ -11,6 +11,9 @@ export const createUserSchema = object({
     passwordConfirmation: string({
       required_error: "passwordConfirmation is required"
     }),
+    country: string({
+      required_error: "country is required"
+    }),
     email: string({
       required_error: "Email is required"
     }).email("Invalid email"),

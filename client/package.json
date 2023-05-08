@@ -1,0 +1,45 @@
+{
+  "name": "tenerr",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^3.1.0",
+    "@reduxjs/toolkit": "^1.9.5",
+    "@stripe/react-stripe-js": "^2.1.0",
+    "@stripe/stripe-js": "^1.52.1",
+    "@tanstack/react-query": "^4.29.5",
+    "axios": "^1.4.0",
+    "embla-carousel-autoplay": "^7.1.0",
+    "embla-carousel-react": "^7.1.0",
+    "infinite-react-carousel": "^1.2.11",
+    "intl-tel-input": "^18.1.5",
+    "keen-slider": "^6.8.5",
+    "moment": "^2.29.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.9",
+    "react-redux": "^8.0.5",
+    "react-router-dom": "^6.10.0",
+    "sass": "^1.62.0",
+    "swr": "^2.1.5",
+    "zod": "^3.21.4"
+  },
+  "devDependencies": {
+    "@tanstack/eslint-plugin-query": "^4.29.4",
+    "@types/intl-tel-input": "^17.0.6",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@types/react-redux": "^7.1.25",
+    "@vitejs/plugin-react-swc": "^3.0.0",
+    "eslint": "^8.38.0",
+    "eslint-plugin-react": "^7.32.2",
+    "typescript": "^4.9.3",
+    "vite": "^4.2.0"
+  }
+}

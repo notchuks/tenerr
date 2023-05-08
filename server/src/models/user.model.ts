@@ -25,7 +25,7 @@ const userSchema = new mongoose.Schema<UserDocument>(
     username: { type: String, required: true, unique: true },
     email: { type: String, required: true, unique: true },
     password: { type: String, required: true },
-    img: { type: String, required: false },
+    img: { type: String, required: false, default: "https://i.imgur.com/0kPOgsA.jpg" },
     country: { type: String, required: true },
     phone: { type: String, required: false },
     desc: { type: String, required: false },
@@ -34,6 +34,15 @@ const userSchema = new mongoose.Schema<UserDocument>(
     timestamps: true,
   }
 );
+
+// never return the password when returning the user collection. (wont work because of lean() method)
+// userSchema.set("toJSON", {
+//   transform: function(doc, ret, opt) {
+//     delete ret.password;
+//     return ret;
+//   }
+// });
+
 
 userSchema.pre("save", async function (next) {
   let user = this as UserDocument;
