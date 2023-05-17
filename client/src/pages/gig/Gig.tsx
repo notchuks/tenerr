@@ -1,16 +1,21 @@
 import React from 'react';
+import { useParams } from 'react-router-dom';
 import { Slide } from '../../components';
+import { useFetchGigQuery } from '../../redux/query/fetchGigs';
 import "./Gig.scss";
 
 const Gig = () => {
+  const { id } = useParams();
+  const { data: gig, isFetching, error } = useFetchGigQuery(id!);
+  console.log(gig);
   return (
     <div className="gig">
       <div className="container">
         <div className="left">
           <span className="breadCrumbs">
-            TENERR {`>`} GRAPHICS & DESIGN {`>`}
+            TENERR {`>`} {gig?.cat.toUpperCase()} {`>`}
           </span>
-          <h1>I will create an ai generated art for you</h1>
+          <h1>{gig?.title}</h1>
           <div className="user">
             <img
               className="pp"
@@ -29,12 +34,14 @@ const Gig = () => {
           </div>
           <Slide slidesToShow={1} width={"600px"}>
             <div className="slider">
-              <img
-                className="number-slide keen-slider__slide"
-                src="https://images.pexels.com/photos/1074535/pexels-photo-1074535.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-              <img
+              {gig?.images?.map((img) => (
+                <img
+                  className="number-slide keen-slider__slide"
+                  src={img}
+                  key={img}
+                />
+              ))}
+              {/* <img
                 className="number-slide keen-slider__slide"
                 src="https://images.pexels.com/photos/1462935/pexels-photo-1462935.jpeg?auto=compress&cs=tinysrgb&w=1600"
                 alt=""
@@ -43,25 +50,11 @@ const Gig = () => {
                 className="number-slide keen-slider__slide"
                 src="https://images.pexels.com/photos/1054777/pexels-photo-1054777.jpeg?auto=compress&cs=tinysrgb&w=1600"
                 alt=""
-              />
+              /> */}
             </div>
           </Slide>
           <h2>About This Gig</h2>
-          <p>
-            I use an AI program to create images based on text prompts. This
-            means I can help you to create a vision you have through a textual
-            description of your scene without requiring any reference images.
-            Some things I've found it often excels at are: Character portraits
-            (E.g. a picture to go with your DnD character) Landscapes (E.g.
-            wallpapers, illustrations to compliment a story) Logos (E.g. Esports
-            team, business, profile picture) You can be as vague or as
-            descriptive as you want. Being more vague will allow the AI to be
-            more creative which can sometimes result in some amazing images. You
-            can also be incredibly precise if you have a clear image of what you
-            want in mind. All of the images I create are original and will be
-            found nowhere else. If you have any questions you're more than
-            welcome to send me a message.
-          </p>
+          <p>{gig?.desc}</p>
           <div className="seller">
             <h2>About The seller</h2>
             <div className="user">
@@ -227,29 +220,30 @@ const Gig = () => {
         </div>
         <div className="right">
           <div className="price">
-            <h3>1 AI generated image</h3>
-            <h2>$ 59.99</h2>
+            <h3>{gig?.shortTitle}</h3>
+            <h2>$ {gig?.price}</h2>
           </div>
           <p>
-            I will create a unique high quality AI generated image based on a
-            description that you give me
+            {gig?.shortDesc}
           </p>
           <div className="details">
             <div className="item">
               <img src="/img/clock.png" alt="" />
-              <span>2 Days Delivery</span>
+              <span>{gig?.deliveryTime} Days Delivery</span>
             </div>
             <div className="item">
               <img src="/img/recycle.png" alt="" />
-              <span>3 Revisions</span>
+              <span>{gig?.revisionNumber} Revisions</span>
             </div>
           </div>
           <div className="features">
-            <div className="item">
-              <img src="/img/greencheck.png" alt="" />
-              <span>Prompt writing</span>
-            </div>
-            <div className="item">
+            {gig?.features?.map((feature) => (
+              <div className="item">
+                <img src="/img/greencheck.png" alt="" />
+                <span>{feature}</span>
+              </div>
+            ))}
+            {/* <div className="item">
               <img src="/img/greencheck.png" alt="" />
               <span>Artwork delivery</span>
             </div>
@@ -260,7 +254,7 @@ const Gig = () => {
             <div className="item">
               <img src="/img/greencheck.png" alt="" />
               <span>Additional design</span>
-            </div>
+            </div> */}
           </div>
           <button>Continue</button>
         </div>

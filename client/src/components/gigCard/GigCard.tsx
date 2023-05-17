@@ -35,21 +35,21 @@ const GigCard = ({ gig }: { gig: Gig }) => {
   }, []);
 
   return (
-    <Link to={"/gig/123"} className="link">
+    <Link to={`/gig/${gig.gigId}`} className="link">
       <div className="gigCard">
         <img src={gig.cover} alt="" />
 
         <div className="info">
           {user && (
             <div className="user">
-              <img src={user?.img} alt="" />
+              <img src={user?.img || "/img/default.jpg"} alt="" />
               <span>{user.username}</span>
             </div>
           )}
           <p>{gig.shortDesc}</p>
           <div className="star">
             <img src="./img/star.png" alt="" />
-            <span>{gig.totalStars}</span>
+            <span>{!isNaN(gig.totalStars! / gig.starNumber!) && Math.round(gig.totalStars! / gig.starNumber!)}</span>
           </div>
         </div>
 

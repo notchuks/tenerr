@@ -17,7 +17,7 @@ const Navbar = () => {
   }, []);
   
   const { currentUser } = useAppSelector((state) => state.user);
-  console.log(currentUser);
+  // console.log(currentUser);
 
   const { pathname } = useLocation();
 
@@ -61,7 +61,7 @@ const Navbar = () => {
           {currentUser && (
             <div className="user" onClick={() => setOpen(!open)}>
               {/* <img src={"/img/default.jpg"} alt="" /> */}
-              <img src={currentUser?.img || "/img/default.png"} alt="" />
+              <img src={currentUser?.img || "/img/default.jpg"} alt="" />
               <span>{currentUser?.username}</span>
               {open && (
                 <div className="options">

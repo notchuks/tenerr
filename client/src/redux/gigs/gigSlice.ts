@@ -26,10 +26,11 @@ export interface GigState {
   error: boolean | string;
 }
 
-interface Fetch {
+export interface Fetch {
   search: string;
   min: string | undefined;
   max: string | undefined;
+  sort: string;
 }
 
 type FetchError = {
@@ -40,9 +41,13 @@ const BASE_URL = "http://localhost:1337/api";
 
 export const fetchGigs = createAsyncThunk<Gig[], Fetch, { rejectValue: FetchError }>(
   'gigs/fetchGigs',
-  async ({search, min, max}: Fetch, thunkAPI) => {
+  async ({search, min, max, sort}: Fetch, thunkAPI) => {
     try {
-      const response = await axios.get(`${BASE_URL}/gigs${search}&min=${min}&max=${max}`, { withCredentials: true });
+      console.log(!min);
+      console.log(!max);
+      console.log(search == "");
+
+      const response = await axios.get(`${BASE_URL}/gigs?${search}${search == "" ? "" : "&"}min=${!min ? "" : min}&max=${!max ? "" : max}&sort=${sort}`, { withCredentials: true });
       return response.data;
     } catch (err: any) {
       return thunkAPI.rejectWithValue({

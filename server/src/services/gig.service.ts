@@ -20,9 +20,9 @@ export async function findGig(query: FilterQuery<GigDocument>, options: QueryOpt
   }
 };
 
-export async function findGigs(filters: Query) {
+export async function findGigs(filters: Query, arrange: string) {
   try {
-    const gigs = await GigModel.find(filters);
+    const gigs = await GigModel.find(filters).sort({ [arrange]: -1 });
     return gigs;
   } catch (err) {
     throw err;

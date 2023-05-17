@@ -245,10 +245,13 @@
         justify-content: space-between;
 
         h3 {
+          flex: 3;
           font-weight: 500;
         }
 
         h2 {
+          flex: 1;
+          font-size: 1.36em;
           font-weight: 300;
         }
       }

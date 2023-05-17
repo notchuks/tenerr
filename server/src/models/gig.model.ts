@@ -54,7 +54,9 @@ const gigSchema = new mongoose.Schema<GigDocument>(
 gigSchema.set("toJSON", {
   getters: true,
   transform: (doc, ret) => {
-    ret.price = ret.price.toString();
+    if (ret.price !==  "undefined") {
+      ret.price = ret.price.toString();
+    }
     return ret;
   }
 });

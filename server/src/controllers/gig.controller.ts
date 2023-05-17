@@ -10,6 +10,7 @@ export interface Query {
   min: number;
   max: number;
   search: string;
+  sort: string;
 };
 
 export async function createGigHandler(req: Request<{}, {}, CreateGigInput["body"]>, res: Response) {
@@ -53,7 +54,8 @@ export async function getGigsHandler(req: Request<{}, {}, {}, Query>, res: Respo
     ...(q.search && { title: { $regex: q.search, $options: "i" } }),
   };
   // console.log(filters);
-  const gigs = await findGigs(filters);
+  console.log(q.sort);
+  const gigs = await findGigs(filters, q.sort);
   
   return res.json(gigs).status(200);
 }
