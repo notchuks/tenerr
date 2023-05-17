@@ -12,8 +12,8 @@ router.get("/test", (req: Request, res: Response) => {
 
 router.post("/", [validateResource(createGigSchema), requireUser], createGigHandler);
 router.get("/:gigId", requireUser, getGigHandler);
-router.get("/", requireUser, getGigsHandler);
-router.put("/", requireUser, updateGigHandler);
-router.delete("/", requireUser, deleteGigHandler);
+router.get("/", getGigsHandler);
+router.put("/:gigId", requireUser, updateGigHandler);
+router.delete("/:gigId", requireUser, deleteGigHandler);
 
 export default router;

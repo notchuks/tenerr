@@ -29,7 +29,7 @@ app.use(cookieParser());
 
 app.use("/api/auth", deserializeUser, authRoute);
 app.use("/api/users", deserializeUser, userRoute);
-app.use("/api/gigs", gigRoute);
+app.use("/api/gigs", deserializeUser, gigRoute);
 app.use("/api/conversations", conversationRoute);
 app.use("/api/messages", messageRoute);
 app.use("/api/orders", orderRoute);

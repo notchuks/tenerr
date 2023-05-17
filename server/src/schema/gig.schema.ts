@@ -1,4 +1,5 @@
-import { object, string, number, array, TypeOf } from "zod";
+import mongoose from "mongoose";
+import { object, string, custom, number, array, TypeOf } from "zod";
 
 const payload = {
   body: object({
@@ -13,9 +14,7 @@ const payload = {
     cat: string({
       required_error: "Category is required"
     }),
-    price: number({
-      required_error: "Price is required"
-    }),
+    price: custom<mongoose.Types.Decimal128>(),
     cover: string({
       required_error: "Cover Image is required"
     }),
@@ -29,7 +28,7 @@ const payload = {
     deliveryTime: number({
       required_error: "Delivery Time is required"
     }),
-    revisonNumber: number({
+    revisionNumber: number({
       required_error: "Revison Number is required"
     }),
     features: array(string()).optional(),
@@ -62,7 +61,7 @@ export const deleteGigSchema = object({
   ...params
 })
 
-export type CreateProductInput = TypeOf<typeof createGigSchema>
-export type UpdateProductInput = TypeOf<typeof updateGigSchema>
-export type ReadProductInput = TypeOf<typeof getGigSchema>
-export type DeleteProductInput = TypeOf<typeof deleteGigSchema>
+export type CreateGigInput = TypeOf<typeof createGigSchema>
+export type UpdateGigInput = TypeOf<typeof updateGigSchema>
+export type ReadGigInput = TypeOf<typeof getGigSchema>
+export type DeleteGigInput = TypeOf<typeof deleteGigSchema>

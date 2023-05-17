@@ -9,6 +9,7 @@ export interface UserInput {
   password: string;
   img?: string;
   country?: string;
+  countryCode?: string;
   phone?: string;
   desc?: string;
   isSeller?: boolean;
@@ -27,6 +28,7 @@ const userSchema = new mongoose.Schema<UserDocument>(
     password: { type: String, required: true },
     img: { type: String, required: false, default: "https://i.imgur.com/0kPOgsA.jpg" },
     country: { type: String, required: true },
+    countryCode: { type: String, required: false },
     phone: { type: String, required: false },
     desc: { type: String, required: false },
     isSeller: { type: Boolean, default: false },

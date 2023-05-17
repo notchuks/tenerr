@@ -1,15 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { fetchGigs } from '../../redux/gigs/gigSlice';
 import { GigCard } from '../../components';
-import { gigs } from '../../data';
+// import { gigs } from '../../data';
 import "./Gigs.scss";
 
 const Gigs = () => {
   const [open, setOpen] = useState(false);
   const [sort, setSort] = useState("sales");
+  const dispatch = useAppDispatch();
+  const { gigs, isFetching, error } = useAppSelector((state) => state.gigs);
+  const { search } = useLocation();
+  const minRef = useRef<HTMLInputElement>(null);
+  const maxRef = useRef<HTMLInputElement>(null);
+
+  // get Gigs
+  useEffect(() => {
+    dispatch(fetchGigs({ search, min, max }));
+  }, []);
+
+  let min = minRef.current?.value;
+  let max = maxRef.current?.value;
 
   const reSort = (type: string) => {
     setSort(type);
     setOpen(false);
+  }
+
+  const apply = () => {
+    console.log(minRef.current?.value);
+    console.log(maxRef.current?.value);
   }
   return (
     <div className="gigs">
@@ -20,9 +41,9 @@ const Gigs = () => {
         <div className="menu">
           <div className="left">
             <span>Budget:</span>
-            <input type="text" placeholder="min" name="" id="" />
-            <input type="text" placeholder="max" name="" id="" />
-            <button>Apply</button>
+            <input type="number" placeholder="min" ref={minRef} name="" id="" min={1} />
+            <input type="number" placeholder="max" ref={maxRef} name="" id="" min={1} />
+            <button onClick={apply}>Apply</button>
           </div>
           <div className="right">
             <span className="sortBy">Sort By</span>
@@ -35,8 +56,8 @@ const Gigs = () => {
         </div>
 
         <div className="cards">
-          {gigs.map(gig => (
-            <GigCard key={gig.id} gig={gig} />
+          {isFetching ? "Loading" : error ? "Something went wrong :(" : gigs && gigs.map(gig => (
+            <GigCard key={gig.gigId} gig={gig} />
           ))}
         </div>
       </div>

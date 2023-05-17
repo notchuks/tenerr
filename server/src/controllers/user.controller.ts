@@ -1,6 +1,6 @@
 import express, { Request, Response, NextFunction } from "express";
-import { CreateUserInput } from "../schema/user.schema";
-import { createUser } from "../services/user.service";
+import { CreateUserInput, ReadUserInput } from "../schema/user.schema";
+import { createUser, findUser } from "../services/user.service";
 import { logger } from "../utils";
 
 export async function createUserHandler(req :Request<{}, {}, CreateUserInput["body"]>, res: Response) {
@@ -12,6 +12,20 @@ export async function createUserHandler(req :Request<{}, {}, CreateUserInput["bo
     logger.error(e);
     return res.status(500).send(e.message);
   }
+}
+
+export async function findUserHandler(req: Request<ReadUserInput["params"]>, res: Response) {
+  const userId = req.params.userId;
+  // console.log(userId);
+
+  const user = await findUser({ _id: userId });
+  // console.log(gig);
+
+  if (!user) {
+    return res.sendStatus(404);
+  }
+
+  return res.json(user);
 }
 
 export async function getCurrentUser(req: Request, res: Response) {

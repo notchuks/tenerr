@@ -6,8 +6,11 @@ export interface User {
   username: string;
   email: string;
   country: string;
-  isSeller: boolean;
+  isSeller?: boolean | undefined;
   img?: string;
+  countryCode?: string;
+  phone?: string;
+  desc?: string;
 }
 
 export interface UserState {
@@ -65,7 +68,16 @@ export const getCurrentUser = createAsyncThunk(
   }
 );
 
-// Our createAsyncthunk to fetch signed in user
+// Our createAsyncthunk to fetch any user
+export const findUser = createAsyncThunk(
+  'user/findUser',
+  async (userId: string, thunkAPI) => {
+    const response = await axios.get(`${BASE_URL}/users/get/${userId}`, { withCredentials: true });
+    return response.data;
+  }
+);
+
+// Our createAsyncthunk to logout
 export const logout = createAsyncThunk(
   'user/logout',
   async (thunkAPI) => {

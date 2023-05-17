@@ -34,10 +34,21 @@
           border-radius: 5px;
         }
 
+        p {
+          font-size: 14px;
+          color: rgb(192, 15, 15);
+        }
+
         .iti__flag {background-image: url("path/to/flags.png");}
 
         @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
           .iti__flag {background-image: url("path/to/flags@2x.png");}
+        }
+
+        .country-input {
+          padding: 15px;
+          border: 1px solid lightgray;
+          border-radius: 5px;
         }
 
         .picture {

@@ -1,9 +1,11 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import userReducer from "./user/userSlice";
+import gigReducer from "./gigs/gigSlice";
 
 export const store = configureStore({
   reducer: {
     user: userReducer,
+    gigs: gigReducer,
   },
 })
 
