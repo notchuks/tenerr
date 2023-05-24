@@ -71,16 +71,17 @@
       }
 
       button {
-        color: white;
+        color: #1dbf73;
         padding: 0.6em 1.2em;
         font-size: 1em;
-        border: 1px solid white;
+        border: 1px solid #1dbf73;
         border-radius: 8px;
         font-weight: 500;
         cursor: pointer;
         background-color: transparent;
 
         &:hover {
+          color: white;
           background-color: #1dbf73;
           border-color: #1dbf73;
         }

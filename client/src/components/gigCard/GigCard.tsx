@@ -2,37 +2,28 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { User, findUser } from '../../redux/user/userSlice';
-import { Gig } from "../../redux/gigs/gigSlice"
-import { gigs } from "../../data";
+import { useFetchUserQuery } from "../../redux/query/fetchUser";
+import { Gig } from "../../utils/types";
 import "./GigCard.scss";
-
-// interface Gig {
-//   id: number;
-//   img: string;
-//   pp: string;
-//   desc: string;
-//   price: number;
-//   star: number;
-//   username: string;
-// }
 
 const GigCard = ({ gig }: { gig: Gig }) => {
   const dispatch = useAppDispatch();
-  const [user, setUser] = useState<User>();
-  const { gigs: foo } = useAppSelector((state) => state.gigs);
+  // const [user, setUser] = useState<User>();
+  const { data: user, isFetching, error } = useFetchUserQuery(gig.userId);
 
   // console.log(gig);
+  // console.log(data);
 
-  useEffect(() => {
-    const fetchdata = async () => {
-      if (gig.userId) {
-        const response = await dispatch(findUser(gig.userId));
-        // console.log(response.payload);
-        setUser(response.payload);
-      }
-    };
-    fetchdata();
-  }, []);
+  // useEffect(() => {
+  //   const fetchdata = async () => {
+  //     if (gig.userId) {
+  //       const response = await dispatch(findUser(gig.userId));
+  //       // console.log(response.payload);
+  //       setUser(response.payload);
+  //     }
+  //   };
+  //   fetchdata();
+  // }, []);
 
   return (
     <Link to={`/gig/${gig.gigId}`} className="link">

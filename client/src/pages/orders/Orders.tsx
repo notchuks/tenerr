@@ -1,13 +1,16 @@
+import { skipToken } from "@reduxjs/toolkit/dist/query";
 import React from "react";
 import { Link } from "react-router-dom";
+import { useAppSelector } from '../../redux/hooks';
+import { useFetchOrdersQuery } from "../../redux/query/orders";
+import { Order } from "../../components";
 import "./Orders.scss";
 
 const Orders = () => {
-  const currentUser = {
-    id: 1,
-    username: "John Doe",
-    isSeller: true,
-  };
+  const { currentUser } = useAppSelector((state) => state.user);
+
+  const { data: orders, error, isFetching, isSuccess } = useFetchOrdersQuery(); 
+  console.log(orders);
 
   return (
     <div className="orders">
@@ -15,7 +18,7 @@ const Orders = () => {
         <div className="title">
           <h2>Orders</h2>
         </div>
-        <table>
+        {isFetching ? "Loading" : error ? "Something went wrong" : (<table>
           <tr>
             <th>Image</th>
             <th>Title</th>
@@ -23,109 +26,10 @@ const Orders = () => {
             <th>{currentUser?.isSeller ? "Buyer" : "Seller"}</th>
             <th>Contact</th>
           </tr>
-          <tr>
-            <td>
-              <img
-                className="image"
-                src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-            </td>
-            <td>Stunning Concept Art</td>
-            <td>
-              59.<sup>99</sup>
-            </td>
-            <td>13</td>
-            <td>
-              <img className="delete" src="/img/message.png" alt="" />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img
-                className="image"
-                src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-            </td>
-            <td>Stunning Concept Art</td>
-            <td>
-              59.<sup>99</sup>
-            </td>
-            <td>13</td>
-            <td>
-              <img className="delete" src="/img/message.png" alt="" />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img
-                className="image"
-                src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-            </td>
-            <td>Stunning Concept Art</td>
-            <td>
-              59.<sup>99</sup>
-            </td>
-            <td>13</td>
-            <td>
-              <img className="delete" src="/img/message.png" alt="" />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img
-                className="image"
-                src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-            </td>
-            <td>Stunning Concept Art</td>
-            <td>
-              59.<sup>99</sup>
-            </td>
-            <td>13</td>
-            <td>
-              <img className="delete" src="/img/message.png" alt="" />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img
-                className="image"
-                src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-            </td>
-            <td>Stunning Concept Art</td>
-            <td>
-              59.<sup>99</sup>
-            </td>
-            <td>13</td>
-            <td>
-              <img className="delete" src="/img/message.png" alt="" />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img
-                className="image"
-                src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600"
-                alt=""
-              />
-            </td>
-            <td>Stunning Concept Art</td>
-            <td>
-              59.<sup>99</sup>
-            </td>
-            <td>13</td>
-            <td>
-              <img className="delete" src="/img/message.png" alt="" />
-            </td>
-          </tr>
-        </table>
+          {orders?.map((order) => (
+            <Order order={order}/>
+          ))}
+        </table>)}
       </div>
     </div>
   );

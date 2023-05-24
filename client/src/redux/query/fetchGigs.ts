@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { Gig, Fetch } from '../gigs/gigSlice';
+import { Fetch } from '../gigs/gigSlice';
+import { Gig } from '../../utils/types';
 
 export const gigsApi = createApi({
   reducerPath: "fetchGigs",

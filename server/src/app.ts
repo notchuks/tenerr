@@ -30,10 +30,10 @@ app.use(cookieParser());
 app.use("/api/auth", deserializeUser, authRoute);
 app.use("/api/users", deserializeUser, userRoute);
 app.use("/api/gigs", deserializeUser, gigRoute);
-app.use("/api/conversations", conversationRoute);
+app.use("/api/conversations", deserializeUser, conversationRoute);
 app.use("/api/messages", messageRoute);
-app.use("/api/orders", orderRoute);
-app.use("/api/reviews", reviewRoute);
+app.use("/api/orders", deserializeUser, orderRoute);
+app.use("/api/reviews", deserializeUser, reviewRoute);
 
 app.listen(port, async () => {
   logger.info(`App is running at localhost://${port}.`);

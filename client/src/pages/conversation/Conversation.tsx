@@ -1,10 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import "./Message.scss";
+import { Link, useParams } from "react-router-dom";
+import "./Conversation.scss";
 
-const Message = () => {
+const Conversation = () => {
+  const { convoId } = useParams();
   return (
-    <div className="message">
+    <div className="conversation">
       <div className="container">
         <span className="breadCrumbs">
           <Link to={"/messages"} className="link">
@@ -75,4 +76,4 @@ const Message = () => {
   );
 };
 
-export default Message;
+export default Conversation;

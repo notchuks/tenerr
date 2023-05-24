@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import "./App.scss";
 import { Navbar, Footer } from "./components";
-import { Add, Gig, Gigs, Home, Login, Message, Messages, MyGigs, Orders, Register } from "./pages";
+import { Add, Gig, Gigs, Home, Login, Conversation, Messages, MyGigs, Orders, Register } from "./pages";
 
 function App(): JSX.Element {
 
@@ -46,8 +46,8 @@ function App(): JSX.Element {
           element: <Messages />,
         },
         {
-          path: "/message/:id",
-          element: <Message />,
+          path: "/conversation/:convoId",
+          element: <Conversation />,
         },
         {
           path: "/mygigs",

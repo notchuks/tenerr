@@ -29,9 +29,10 @@ export async function createGigHandler(req: Request<{}, {}, CreateGigInput["body
     res.status(409).send(err);
   }
 }
+
 export async function getGigHandler(req: Request<ReadGigInput["params"]>, res: Response) {
   const gigId = req.params.gigId;
-  // console.log(gigId);
+  console.log(gigId);
 
   const gig = await findGig({ gigId });
   // console.log(gig);
