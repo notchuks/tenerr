@@ -30,7 +30,7 @@ const Message = ({ conversation }: { conversation: Conversation }) => {
         </td>
         <td>1 day ago</td>
         <td>
-          {(currentUser?.isSeller && !conversation.readBySeller) || (!currentUser?.isSeller && !conversation.readByBuyer) && (
+          {((currentUser?.isSeller && !conversation.readBySeller) || (!currentUser?.isSeller && !conversation.readByBuyer)) && (
             <button onClick={() => handleRead(conversation.convoId)} >Mark as Read</button>
           )}
         </td>

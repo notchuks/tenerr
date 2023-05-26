@@ -5,6 +5,7 @@ import { userApi } from "./query/fetchUser";
 import { reviewsApi } from "./query/reviews";
 import { ordersApi } from "./query/orders";
 import { conversationApi } from "./query/conversation";
+import { messageApi } from "./query/messages";
 import userReducer from "./user/userSlice";
 import gigReducer from "./gigs/gigSlice";
 
@@ -17,10 +18,11 @@ export const store = configureStore({
     [reviewsApi.reducerPath]: reviewsApi.reducer,
     [ordersApi.reducerPath]: ordersApi.reducer,
     [conversationApi.reducerPath]: conversationApi.reducer,
+    [messageApi.reducerPath]: messageApi.reducer,
   },
   // Adding the api middleware enables caching, invalidation, polling, and other useful features of `rtk-query`.
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(gigsApi.middleware, userApi.middleware, reviewsApi.middleware, ordersApi.middleware, conversationApi.middleware),
+    getDefaultMiddleware().concat(gigsApi.middleware, userApi.middleware, reviewsApi.middleware, ordersApi.middleware, conversationApi.middleware, messageApi.middleware),
 });
 
 setupListeners(store.dispatch);

@@ -17,15 +17,11 @@ const params = {
     convoId: string({
       required_error: "convoId is required"
     }),
-    userId: string({
-      required_error: "userId is required"
-    })
   })
 }
 
 export const createMessageSchema = object({
-  ...payload,
-  ...params
+  ...payload
 })
 
 export const updateMessageSchema = object({

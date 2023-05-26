@@ -8,7 +8,7 @@ export interface Input {
   userId: string;
 }
 
-export async function createConversationHandler(req: Request<{}, {}, CreateMessageInput["body"]>, res: Response) {
+export async function createMessageHandler(req: Request<{}, {}, CreateMessageInput["body"]>, res: Response) {
 
   const convoId = req.body.convoId;
   const desc = req.body.desc;

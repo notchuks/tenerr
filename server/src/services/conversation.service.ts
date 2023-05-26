@@ -39,7 +39,7 @@ export async function getConversation(convoId: any) {
 
 export async function getConversations(isSeller: any, userId: any) {
   try {
-    const conversations = await ConversationModel.find(isSeller ? { sellerId: userId } : { buyerId: userId });
+    const conversations = await ConversationModel.find(isSeller ? { sellerId: userId } : { buyerId: userId }).sort({ updatedAt: -1 });
     return conversations;
   } catch (err) {
     throw err;

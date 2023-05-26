@@ -1,13 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { Conversation } from '../../utils/types';
+import { Message } from '../../utils/types';
 
-// When creating a convo, only "to" is sent in the body.
-type ConversationInput = {
-  to: string;
-}
-
-export const conversationApi = createApi({
-  reducerPath: "fetchConversations",
+export const messageApi = createApi({
+  reducerPath: "fetchMessages",
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:1337/api",
     prepareHeaders(headers) {
@@ -15,12 +10,12 @@ export const conversationApi = createApi({
     },
     credentials: "include"
   }),
-  tagTypes: ["Conversations"],
+  tagTypes: ["Messages"],
   endpoints: (builder) => ({
-    fetchConversations: builder.query<Conversation[], void>({
-      query: () => {
+    fetchMessages: builder.query<Message[], string>({
+      query: (convoId) => {
         return {
-          url: `/conversations/`,
+          url: `/messages/${convoId}`,
         }
       },
       // Provides a list of `Conversations` by `id`.
@@ -31,41 +26,26 @@ export const conversationApi = createApi({
         result
           ? // successful query
             [
-              ...result.map(({ _id }) => ({ type: 'Conversations', id: _id } as const)),
-              { type: 'Conversations', id: 'LIST' },
+              ...result.map(({ _id }) => ({ type: 'Messages', id: _id } as const)),
+              { type: 'Messages', id: 'LIST' },
             ]
           : // an error occurred, but we still want to refetch this query when `{ type: 'Posts', id: 'LIST' }` is invalidated
-            [{ type: 'Conversations', id: 'LIST' }],
+            [{ type: 'Messages', id: 'LIST' }],
     }),
-    fetchConversation: builder.query<Conversation, string>({
-      query: (convoId) => {
-        return {
-          url: `/conversations/${convoId}`,
-        }
-      },
-    }),
-    createConversation: builder.mutation<Conversation, ConversationInput>({
+    createMessage: builder.mutation<Message, Partial<Message>>({
       query(body) {
         return {
-          url: `/conversations/`,
+          url: `/messages/`,
           method: 'POST',
           body,
         }
       },
-    }),
-    updateConversation: builder.mutation<Conversation, string>({
-      query(convoId) {
-        return {
-          url: `/conversations/${convoId}`,
-          method: 'PUT'
-        }
-      },
       // Invalidates all Post-type queries providing the `LIST` id - after all, depending of the sort order,
       // that newly created post could show up in any lists.
-      invalidatesTags: [{ type: 'Conversations', id: 'LIST' }],
+      invalidatesTags: [{ type: 'Messages', id: 'LIST' }],
     }),
   }),
 });
 
 // return `gigs?${search}${search == "" ? "" : "&"}min=${!min ? "" : min}&max=${!max ? "" : max}&sort=${sort}`;
-export const { useFetchConversationsQuery, useFetchConversationQuery, useCreateConversationMutation, useUpdateConversationMutation } = conversationApi;
+export const { useFetchMessagesQuery, useCreateMessageMutation } = messageApi;

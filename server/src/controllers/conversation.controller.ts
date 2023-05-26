@@ -42,7 +42,12 @@ export async function getConversationHandler(req: Request<ReadConversationInput[
 
   try {
     const conversation = await getConversation(convoId);
-    res.status(200).send(conversation);
+
+    if(!conversation) {
+      return res.status(404).send("No conversation with this id.")
+    };
+
+    return res.status(200).send(conversation);
   } catch (err: any) {
     return res.status(404).send(err);
   }

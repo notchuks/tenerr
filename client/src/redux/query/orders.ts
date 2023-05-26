@@ -1,6 +1,11 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { Order } from '../../utils/types';
 
+// Not 
+type Intent = {
+  clientSecret: string;
+}
+
 export const ordersApi = createApi({
   reducerPath: "fetchOrders",
   baseQuery: fetchBaseQuery({
@@ -18,7 +23,15 @@ export const ordersApi = createApi({
         }
       },
     }),
+    createPayment: builder.mutation<Intent, string>({
+      query(gigId) {
+        return {
+          url: `/orders/create-payment-intent/${gigId}`,
+          method: 'POST',
+        }
+      },
+    }),
   }),
 });
 
-export const { useFetchOrdersQuery } = ordersApi;
+export const { useFetchOrdersQuery, useCreatePaymentMutation } = ordersApi;

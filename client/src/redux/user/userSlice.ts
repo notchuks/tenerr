@@ -3,6 +3,7 @@ import axios from "axios";
 import { RootState, AppThunk } from "../store";
 
 export interface User {
+  _id: string;
   username: string;
   email: string;
   country: string;

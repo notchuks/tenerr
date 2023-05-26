@@ -8,7 +8,7 @@ import "./Messages.scss";
 const Messages = () => {
   const { currentUser } = useAppSelector((state) => state.user);
 
-  const { data: conversations, error, isFetching } = useFetchConversationsQuery();
+  const { data: conversations, error, isLoading } = useFetchConversationsQuery();
   console.log(conversations);
 
   const message = `Lorem ipsum dolor sit amet consectetur adipisicing elit. At voluptatibus, reiciendis suscipit tempora nobis dolorum repellat quidem doloremque, enim illo quisquam aspernatur minus quo quas hic est! Minus, sint reprehenderit.`
@@ -19,7 +19,7 @@ const Messages = () => {
         <div className="title">
           <h2>Messages</h2>
         </div>
-        {isFetching ? "Loading..." : error ? "Something went wrong." : (<table>
+        {isLoading ? "Loading..." : error ? "Something went wrong." : (<table>
           <tr>
             <th>{currentUser?.isSeller ? "Buyer" : "Seller"}</th>
             <th>Last Message</th>
@@ -29,19 +29,6 @@ const Messages = () => {
           {conversations?.map((conversation) => (
             <Message conversation={conversation} />
           ))}
-          <tr className="active">
-            <td>John Doe</td>
-            <td><Link to={"/conversation/123"} className="link">{message.substring(0, 100)}...</Link></td>
-            <td>1 day ago</td>
-            <td>
-              <button>Mark as Read</button>
-            </td>            
-          </tr>
-          <tr>
-            <td>John Doe</td>
-            <td><Link to={"/conversation/123"} className="link">{message.substring(0, 100)}...</Link></td>
-            <td>1 day ago</td>
-          </tr>
         </table>)}
       </div>
     </div>

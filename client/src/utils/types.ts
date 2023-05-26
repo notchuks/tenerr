@@ -66,4 +66,18 @@ export interface Conversation {
   readBySeller: boolean;
   readByBuyer: boolean;
   lastMessage: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+/**
+ * Interface for a message.
+ */
+export interface Message {
+  _id: string;
+  convoId: string;
+  userId: string;
+  desc: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
