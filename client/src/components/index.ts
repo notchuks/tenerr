@@ -5,6 +5,7 @@ export { default as TrustedBy } from "./trustedBy/TrustedBy";
 export { default as Slide } from "./slide/Slide";
 export { default as Message } from "./message/Message";
 export { default as CatCard } from "./catCard/CatCard";
+export { default as CheckoutForm } from "./checkoutForm/CheckoutForm";
 export { default as ProjectCard } from "./projectCard/ProjectCard";
 export { default as GigCard } from "./gigCard/GigCard";
 export { default as Reviews } from "./reviews/Reviews";

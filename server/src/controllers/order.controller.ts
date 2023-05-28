@@ -3,18 +3,19 @@ import Stripe from "stripe";
 import * as dotenv from "dotenv";
 import path from "path";
 import GigModel from "../models/gig.model";
-import OrderModel, { OrderInput } from "../models/order.model";
 import { CreateOrderInput, ReadOrderInput } from "../schema/order.schema";
-import { createOrder, findOrders } from "../services/order.service";
+import { createOrder, findOrders, updateOrder } from "../services/order.service";
 
 dotenv.config({ path: path.join(__dirname, "..", "..", ".env") });
 
-const { STRIPE_SK } = process.env;
+const { STRIPE_SK = "" } = process.env;
 
 export async function intent(req: Request, res: Response) {
   const userId = res.locals.user._id;
   const gigId = req.params.gigId;
-  const stripe = new Stripe(STRIPE_SK);
+  const stripe = new Stripe(STRIPE_SK, { apiVersion: "2022-11-15" });
+
+  console.log(STRIPE_SK);
 
   const gig = await GigModel.findOne({ gigId });
 
@@ -41,7 +42,7 @@ export async function intent(req: Request, res: Response) {
 
   const input = {
     buyerId: userId,
-    payment_intent: paymentIntent._id,
+    payment_intent: paymentIntent.id,
   }
 
   const order = await createOrder(input, gigDetails);
@@ -49,6 +50,7 @@ export async function intent(req: Request, res: Response) {
   return res.status(201).json({ clientSecret: paymentIntent.client_secret });
 }
 
+// Out of service. Intent is used to create orders now.
 export async function createOrderHandler(req: Request<CreateOrderInput["params"], {}, CreateOrderInput["body"]>, res: Response) {
 
   const userId = res.locals.user._id;
@@ -93,6 +95,17 @@ export async function getOrdersHandler(req: Request, res: Response) {
   try {
     const orders = await findOrders(query);
     return res.status(200).json(orders);
+  } catch (err) {
+    res.status(409).send(err);
+  }
+}
+
+export async function updateOrderHandler(req: Request, res: Response) {
+  const payment_intent = req.body.payment_intent;
+
+  try {
+    const order = await updateOrder(payment_intent);
+    return res.status(200).json("Order has been confirmed.");
   } catch (err) {
     res.status(409).send(err);
   }

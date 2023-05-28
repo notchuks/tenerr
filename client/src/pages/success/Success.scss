@@ -1,0 +1,16 @@
+.success {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+
+  .tick {
+    width: 30%;
+    height: 30%;
+  }
+
+  p {
+    color: #12814d;
+    font-weight: 400;
+  }
+}

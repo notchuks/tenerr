@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import "./App.scss";
 import { Navbar, Footer } from "./components";
-import { Add, Gig, Gigs, Home, Login, Conversation, Messages, MyGigs, Orders, Register } from "./pages";
+import { Add, Gig, Gigs, Home, Login, Conversation, Messages, MyGigs, Orders, Register, Pay, Success } from "./pages";
 
 function App(): JSX.Element {
 
@@ -60,6 +60,14 @@ function App(): JSX.Element {
         {
           path: "/register",
           element: <Register />,
+        },
+        {
+          path: "/pay/:gigId",
+          element: <Pay />,
+        },
+        {
+          path: "/success",
+          element: <Success />,
         },
       ],
     },

@@ -6,6 +6,10 @@ type Intent = {
   clientSecret: string;
 }
 
+type Update = {
+  payment_intent: string;
+}
+
 export const ordersApi = createApi({
   reducerPath: "fetchOrders",
   baseQuery: fetchBaseQuery({
@@ -31,7 +35,16 @@ export const ordersApi = createApi({
         }
       },
     }),
+    updateOrder: builder.mutation<string, Update>({
+      query(body) {
+        return {
+          url: `/orders/`,
+          method: 'PUT',
+          body
+        }
+      },
+    }),
   }),
 });
 
-export const { useFetchOrdersQuery, useCreatePaymentMutation } = ordersApi;
+export const { useFetchOrdersQuery, useCreatePaymentMutation, useUpdateOrderMutation } = ordersApi;

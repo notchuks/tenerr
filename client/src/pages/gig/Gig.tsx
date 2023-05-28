@@ -1,6 +1,6 @@
 import { skipToken } from '@reduxjs/toolkit/dist/query';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { Reviews, Slide } from '../../components';
 import { useFetchGigQuery } from '../../redux/query/fetchGigs';
 import { useFetchUserQuery } from '../../redux/query/fetchUser';
@@ -148,20 +148,10 @@ const Gig = () => {
                   <span>{feature}</span>
                 </div>
               ))}
-              {/* <div className="item">
-              <img src="/img/greencheck.png" alt="" />
-              <span>Artwork delivery</span>
             </div>
-            <div className="item">
-              <img src="/img/greencheck.png" alt="" />
-              <span>Image upscaling</span>
-            </div>
-            <div className="item">
-              <img src="/img/greencheck.png" alt="" />
-              <span>Additional design</span>
-            </div> */}
-            </div>
-            <button>Continue</button>
+            <Link to={`/pay/${gig?.gigId}`} className="link" >
+              <button>Continue</button>
+            </Link>
           </div>
         </div>
       )}
