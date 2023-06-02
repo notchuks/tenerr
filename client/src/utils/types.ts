@@ -4,11 +4,15 @@
  * are present when were fetching them. So different interfaces help solve this discrepancy.
  */
 
+export interface User {
+  
+}
 // Check gig model for more info. only features & images have required: false and no default value. Hence can be undefined.
 /**
  * Interface for fetching a Gig from API. Different from interface creating a gig.
  */
 export interface Gig {
+  _id: string;
   title: string;
   desc: string;
   totalStars: number;
@@ -26,6 +30,26 @@ export interface Gig {
   userId: string;
   gigId: string;
 };
+
+/**
+ * Interface creating a gig some gig fields are optional or added after creation.
+ */
+export interface AddGig {
+  userId: string;
+  title: string;
+  desc: string;
+  cat: string;
+  price: string;
+  cover: string;
+  images?: string[];
+  shortTitle: string;
+  shortDesc: string;
+  deliveryTime: number;
+  revisionNumber: number;
+  features?: string[];
+};
+
+
 
 /**
  * Interface for fetching a Review from API. Could just write one review interface and use partials though.

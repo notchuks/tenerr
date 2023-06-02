@@ -18,9 +18,9 @@ export const messageApi = createApi({
           url: `/messages/${convoId}`,
         }
       },
-      // Provides a list of `Conversations` by `id`.
+      // Provides a list of `Messages` by `id`.
       // If any mutation is executed that `invalidate`s any of these tags, this query will re-run to be always up-to-date.
-      // The `LIST` id is a "virtual id" we just made up to be able to invalidate this query specifically if a new `Conversation` element was added.
+      // The `LIST` id is a "virtual id" we just made up to be able to invalidate this query specifically if a new `Messages` element was added.
       providesTags: (result) =>
         // is result available?
         result
@@ -29,7 +29,7 @@ export const messageApi = createApi({
               ...result.map(({ _id }) => ({ type: 'Messages', id: _id } as const)),
               { type: 'Messages', id: 'LIST' },
             ]
-          : // an error occurred, but we still want to refetch this query when `{ type: 'Posts', id: 'LIST' }` is invalidated
+          : // an error occurred, but we still want to refetch this query when `{ type: 'Messages', id: 'LIST' }` is invalidated
             [{ type: 'Messages', id: 'LIST' }],
     }),
     createMessage: builder.mutation<Message, Partial<Message>>({

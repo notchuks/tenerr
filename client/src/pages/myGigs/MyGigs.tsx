@@ -1,11 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { INITIAL_STATE } from '../../reducers/gigReducer';
+import { useAppSelector } from '../../redux/hooks';
+import { useDeleteGigMutation, useFetchUserGigsQuery } from '../../redux/query/fetchGigs';
 import "./MyGigs.scss";
 
 const MyGigs = () => {
+  const { currentUser } = useAppSelector((state) => state.user);
+  const { data: gigs, isLoading, error } = useFetchUserGigsQuery({ userId: currentUser?._id });
+  const [deleteGig, { error: deleteError }] = useDeleteGigMutation();
+  console.log(gigs);
+
+ const handleDelete = async (gigId: string) => {
+  try {
+    const payload = await deleteGig(gigId).unwrap();
+    console.log("fulfilled", payload);
+  } catch (error: any) {
+    console.error("error", error);
+  }
+ }
   return (
     <div className="myGigs">
-      <div className="container">
+      {isLoading ? "Loading..." : error ? "Something went wrong :(" : (<div className="container">
         <div className="title">
           <h2>Gigs</h2>
           <Link to={"/add"} className="link">
@@ -20,74 +36,19 @@ const MyGigs = () => {
             <th>Sales</th>
             <th>Action</th>
           </tr>
-          <tr>
+          {gigs?.map(gig => (<tr key={gig._id}>
             <td>
-              <img className="image" src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="" />
+              <img className="image" src={gig.cover} alt="" />
             </td>
-            <td>Stunning Concept Art</td>
-            <td>59.<sup>99</sup></td>
-            <td>13</td>
+            <td>{gig.shortTitle}</td>
+            <td>{gig.price}</td>
+            <td>{gig.sales}</td>
             <td>
-              <img className="delete" src="/img/delete.png" alt="" />
+              <img className="delete" onClick={() => handleDelete(gig.gigId)} src="/img/delete.png" alt="" />
             </td>
-          </tr>
-          <tr>
-            <td>
-              <img className="image" src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="" />
-            </td>
-            <td>Stunning Concept Art</td>
-            <td>59.<sup>99</sup></td>
-            <td>13</td>
-            <td>
-              <img className="delete" src="/img/delete.png" alt="" />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img className="image" src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="" />
-            </td>
-            <td>Stunning Concept Art</td>
-            <td>59.<sup>99</sup></td>
-            <td>13</td>
-            <td>
-              <img className="delete" src="/img/delete.png" alt="" />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img className="image" src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="" />
-            </td>
-            <td>Stunning Concept Art</td>
-            <td>59.<sup>99</sup></td>
-            <td>13</td>
-            <td>
-              <img className="delete" src="/img/delete.png" alt="" />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img className="image" src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="" />
-            </td>
-            <td>Stunning Concept Art</td>
-            <td>59.<sup>99</sup></td>
-            <td>13</td>
-            <td>
-              <img className="delete" src="/img/delete.png" alt="" />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <img className="image" src="https://images.pexels.com/photos/270408/pexels-photo-270408.jpeg?auto=compress&cs=tinysrgb&w=1600" alt="" />
-            </td>
-            <td>Stunning Concept Art</td>
-            <td>59.<sup>99</sup></td>
-            <td>13</td>
-            <td>
-              <img className="delete" src="/img/delete.png" alt="" />
-            </td>
-          </tr>
+          </tr>))}
         </table>
-      </div>
+      </div>)}
     </div>
   )
 }

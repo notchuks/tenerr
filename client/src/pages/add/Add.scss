@@ -3,7 +3,9 @@
   justify-content: center;
 
   .container {
-    width: 80%;
+    max-width: 80%;
+    overflow-x: auto;
+    width: 100%;
     padding: 50px 0px;
 
     h1 {
@@ -19,6 +21,7 @@
 
       .left, .right {
         flex: 1;
+        max-width: 100%;
         display: flex;
         justify-content: space-between;
         flex-direction: column;
@@ -31,6 +34,51 @@
 
         input, select, textarea {
           padding: 20px;
+        }
+
+        .images {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+        }
+
+        .imageInputs {
+          display: flex;
+          flex-direction: column;
+        }
+
+        .features {
+          display: flex;
+          justify-content: space-between;
+
+          input {
+            width: 70%;
+          }
+        }
+
+        .addedFeatures {
+          display: flex;
+          gap: 10px;
+
+          .item {
+            padding: 5px 10px;
+            gap: 15px;
+            display: flex;
+            align-items: center;
+            height: 30px;
+            font-weight: 400;
+            color: rgb(209, 18, 49);
+            border: 1px solid rgb(209, 18, 49);
+            border-radius: 5px;
+
+            button {
+              padding: 0;
+              background-color: transparent;
+              font-size: 11px;
+              color: rgb(209, 18, 49);
+
+            }
+          }
         }
 
         button {

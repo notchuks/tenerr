@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get("/test", (req: Request, res: Response) => {
   res.send("It works!");
-})
+});
 
 router.post("/", [validateResource(createGigSchema), requireUser], createGigHandler);
 router.get("/:gigId", requireUser, getGigHandler);

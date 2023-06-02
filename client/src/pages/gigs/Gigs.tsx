@@ -22,7 +22,8 @@ const Gigs = () => {
   // console.log(search);
   // console.log(min)
   // console.log(max)
-  const { data, error, isLoading, isFetching, refetch } = useFetchGigsQuery({ search: foo.replace("?", ""), min: minRef.current?.value, max: maxRef.current?.value, sort }, { skip: skip });
+  console.log(foo);
+  const { data, error, isLoading, isFetching, refetch } = useFetchGigsQuery({ search: foo && foo.replace("?search=", ""), min: minRef.current?.value, max: maxRef.current?.value, sort }, { skip: skip });
   
 
   useEffect(() => {

@@ -31,6 +31,7 @@ export interface Fetch {
   min: string | undefined;
   max: string | undefined;
   sort: string;
+  userId?: string;
 }
 
 type FetchError = {
